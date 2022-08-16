@@ -18,7 +18,6 @@ namespace SDSaves {
         private TableLayoutPanel ButtonPanel;
         private List<string> GameSaves = new List<string>();
         private string SavePath;
-        private string ActiveSave;
 
         /************************
         *       Constructor     *
@@ -53,7 +52,6 @@ namespace SDSaves {
             string currentSave = GetCurrentSave();
             if (currentSave != "") {
                 SetButtonColor("Save" + currentSave, ButtonSaveColor);
-                ActiveSave = currentSave;
             }
         }
 
@@ -213,7 +211,6 @@ namespace SDSaves {
                 CopyDirectory(".\\Saves\\" + saveName, SavePath);
 
                 SetButtonColor("Save" + saveName, ButtonSaveColor);
-                ActiveSave = saveName;
             }
         }
 
@@ -265,7 +262,6 @@ namespace SDSaves {
             AddSaveToList(saveName);
 
             SetButtonColor("Save" + saveName, ButtonSaveColor);
-            ActiveSave = saveName;
         }
     }
 }
