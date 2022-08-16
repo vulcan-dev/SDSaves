@@ -15,6 +15,7 @@ namespace SDSaves {
         private TableLayoutPanel ButtonPanel;
         private List<string> GameSaves = new List<string>();
         private string SavePath;
+        private string ActiveSave;
 
         public void AddSaveToList(string name) {
             if (!GameSaves.Contains(name)) {
@@ -117,6 +118,7 @@ namespace SDSaves {
             }
 
             SetButtonColor("Save" + saveName, ButtonSaveColor);
+            ActiveSave = saveName;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e) {
@@ -137,7 +139,7 @@ namespace SDSaves {
             }
 
             string saveName = panel.Controls[rowIndex-1].Text;
-            if (MessageBox.Show("Are you sure you want to delete " + saveName + "?", "Delete Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+            if (MessageBox.Show("Are you sure you want to delete \"" + saveName + "\"?", "Delete Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 Directory.Delete(".\\Saves\\" + saveName, true);
 
                 GameSaves.Remove(saveName);
@@ -178,6 +180,7 @@ namespace SDSaves {
             string currentSave = GetCurrentSave();
             if (currentSave != "") {
                 SetButtonColor("Save" + currentSave, ButtonSaveColor);
+                ActiveSave = currentSave;
             }
         }
 
@@ -220,6 +223,21 @@ namespace SDSaves {
 
         private void createSaveButton_Click(object sender, EventArgs e) {
             string saveName = Controls.Find("input_saveName", true).FirstOrDefault().Text;
+            if (saveName == "") {
+                MessageBox.Show("Please enter a name for the save.");
+                return;
+            }
+
+            if (saveName.Contains("\n")) {
+                MessageBox.Show("Save name cannot contain new lines.");
+                return;
+            }
+
+            if (saveName.Length < 3) {
+                MessageBox.Show("Save name must be at least 3 characters long.");
+                return;
+            }
+
             string path = $".\\Saves\\{saveName}";
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
@@ -229,11 +247,6 @@ namespace SDSaves {
 
             CopyDirectory(SavePath, path, true);
             AddSaveToList(saveName);
-        }
-
-        private void input_saveName_TextChanged(object sender, EventArgs e) {
-            Button createSaveButton = Controls.Find("btn_createSave", true).FirstOrDefault() as Button;
-            createSaveButton.Enabled = input_saveName.Text.Length > 0;
         }
     }
 }
