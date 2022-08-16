@@ -7,7 +7,7 @@
 3. To create a new save, type a name in the `Input Box` and click `Add`. This will copy your save to the `Saves` folder. (Note: You can overwrite a save if you use the same name)
 
 ## Issues:
-- If you load two saves and spawn in, your player position will be in place of the other save. A potential fix is to fully restart the game. I'll speak to Zur about it tomorrow, seems to be a game bug.
+- If you load two saves and spawn in, your player position will be in place of the other save. To fix this, just relaunch the game. As of `v1.1.0f`, it keeps some save data in memory and it doesn't get cleared when you go to the menu.
 
 Before you use this, just make a backup just in case anything goes wrong. I don't see it happening but it's not impossible.
 
