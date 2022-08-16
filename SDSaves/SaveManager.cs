@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace SDSaves {
     public partial class SaveManager : Form {
+        /************************
+        *        Variables      *
+        *************************/
         private Size ButtonSize = new Size(294, 34);
         private Color ButtonColor = Color.FromArgb(47, 51, 61);
         private Color ButtonSaveColor = Color.FromArgb(255, 131, 114);
@@ -17,6 +20,9 @@ namespace SDSaves {
         private string SavePath;
         private string ActiveSave;
 
+        /************************
+        *       Constructor     *
+        *************************/
         public SaveManager() {
             InitializeComponent();
 
@@ -142,7 +148,7 @@ namespace SDSaves {
             if (!source.Exists) {
                 throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + src);
             }
-            
+
             if (destination.Exists && !overwrite) {
                 throw new IOException("Destination directory already exists and overwrite is false.");
             }
