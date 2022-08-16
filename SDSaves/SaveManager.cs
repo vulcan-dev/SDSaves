@@ -142,16 +142,20 @@ namespace SDSaves {
             if (!source.Exists) {
                 throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + src);
             }
+            
             if (destination.Exists && !overwrite) {
                 throw new IOException("Destination directory already exists and overwrite is false.");
             }
+
             if (!destination.Exists) {
                 destination.Create();
             }
+
             FileInfo[] files = source.GetFiles();
             foreach (FileInfo file in files) {
                 file.CopyTo(Path.Combine(dst, file.Name), overwrite);
             }
+
             if (recurse) {
                 DirectoryInfo[] dirs = source.GetDirectories();
                 foreach (DirectoryInfo dir in dirs) {
