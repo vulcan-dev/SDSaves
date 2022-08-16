@@ -76,6 +76,8 @@ namespace SDSaves {
             foreach (Control control in ButtonPanel.Controls) {
                 if (control.Name == name) {
                     control.BackColor = color;
+                } else {
+                    control.BackColor = ButtonColor;
                 }
             }
         }
@@ -143,12 +145,6 @@ namespace SDSaves {
             CopyDirectory(SavePath, ".\\BackupSave\\");
             ClearDirectory(SavePath);
             CopyDirectory(".\\Saves\\" + saveName, SavePath);
-
-            for (int i = 0; i < panel.Controls.Count; i++) {
-                if (panel.Controls[i].Name != loadButton.Name) {
-                    SetButtonColor(panel.Controls[i].Name, ButtonColor);
-                }
-            }
 
             SetButtonColor("Save" + saveName, ButtonSaveColor);
             ActiveSave = saveName;
@@ -285,6 +281,9 @@ namespace SDSaves {
 
             CopyDirectory(SavePath, path, true);
             AddSaveToList(saveName);
+
+            SetButtonColor("Save" + saveName, ButtonSaveColor);
+            ActiveSave = saveName;
         }
     }
 }
