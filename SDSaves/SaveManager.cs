@@ -21,7 +21,7 @@ namespace SDSaves {
             if (!GameSaves.Contains(name)) {
                 GameSaves.Add(name);
             } else {
-                return;
+                return; // Overwrite existing save, we don't need to add it again.
             }
 
             Button saveNameButton = new Button();
@@ -235,6 +235,11 @@ namespace SDSaves {
 
             if (saveName.Length < 3) {
                 MessageBox.Show("Save name must be at least 3 characters long.");
+                return;
+            }
+
+            if (!Directory.Exists(SavePath + "\\Player")) {
+                MessageBox.Show("Save does not exist! Make sure you create a new save in the game.");
                 return;
             }
 
