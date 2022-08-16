@@ -8,3 +8,6 @@
 
 ## Issues:
 - If you load two saves and spawn in, your player position will be in place of the other save. A potential fix is to fully restart the game. I'll speak to Zur about it tomorrow, seems to be a game bug.
+- Sort of an issue: Don't put a newline in the `Input Box`, I had to make it multiline so I could increase the height. Windows Forms is garbage.
+
+Before you use this, just make a backup just in case anything goes wrong. I don't see it happening but it's not impossible.
