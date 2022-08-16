@@ -42,21 +42,22 @@ namespace SDSaves {
             deleteButton.Size = ButtonSize;
             deleteButton.Name = "Delete" + name;
 
-            Button loadButton = new Button();
-            loadButton.FlatStyle = FlatStyle.Flat;
-            loadButton.FlatAppearance.BorderSize = 0;
-            loadButton.Text = "Load";
-            loadButton.BackColor = ButtonColor;
-            loadButton.ForeColor = Color.White;
-            loadButton.Size = ButtonSize;
-            loadButton.Name = "Load" + name;
+            Button overwriteButton = new Button();
+            overwriteButton.FlatStyle = FlatStyle.Flat;
+            overwriteButton.FlatAppearance.BorderSize = 0;
+            overwriteButton.Text = "Save";
+            overwriteButton.BackColor = ButtonColor;
+            overwriteButton.ForeColor = Color.White;
+            overwriteButton.Size = ButtonSize;
+            overwriteButton.Name = "Overwrite" + name;
 
             deleteButton.Click += DeleteButton_Click;
-            loadButton.Click += LoadButton_Click;
+            saveNameButton.Click += SaveNameButton_Click;
+            overwriteButton.Click += OverwriteButton_Click;
 
             ButtonPanel.Controls.Add(saveNameButton);
             ButtonPanel.Controls.Add(deleteButton);
-            ButtonPanel.Controls.Add(loadButton);
+            ButtonPanel.Controls.Add(overwriteButton);
         }
 
         private string GetHash(string path) {
@@ -89,7 +90,38 @@ namespace SDSaves {
             return "";
         }
 
-        private void LoadButton_Click(object sender, EventArgs e) {
+        private void OverwriteButton_Click(object sender, EventArgs e) {
+            Button overwriteButton = (Button)sender;
+            TableLayoutPanel panel = (TableLayoutPanel)overwriteButton.Parent;
+
+            int rowIndex = -1;
+            for (int i = 0; i < panel.Controls.Count; i++) {
+                if (panel.Controls[i].Name == overwriteButton.Name) {
+                    rowIndex = i;
+                    break;
+                }
+            }
+
+            if (rowIndex == -1) {
+                MessageBox.Show("Error finding save!");
+                return;
+            }
+
+            string saveName = panel.Controls[rowIndex-2].Text;
+            if (MessageBox.Show("Are you sure you want to overwrite \"" + saveName + "\"?", "Overwrite Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                string path = $".\\Saves\\{saveName}";
+                if (!Directory.Exists(path)) {
+                    MessageBox.Show("Could not find in \"Saves\" folder!");
+                    return;
+                } else {
+                    ClearDirectory(path);
+                }
+
+                CopyDirectory(SavePath, path);
+            }
+        }
+
+        private void SaveNameButton_Click(object sender, EventArgs e) {
             Button loadButton = (Button)sender;
             TableLayoutPanel panel = (TableLayoutPanel)loadButton.Parent;
 
@@ -106,7 +138,8 @@ namespace SDSaves {
                 return;
             }
 
-            string saveName = panel.Controls[rowIndex-2].Text;
+            string saveName = panel.Controls[rowIndex].Text;
+
             CopyDirectory(SavePath, ".\\BackupSave\\");
             ClearDirectory(SavePath);
             CopyDirectory(".\\Saves\\" + saveName, SavePath);
