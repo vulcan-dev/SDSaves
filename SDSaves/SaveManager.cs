@@ -141,13 +141,14 @@ namespace SDSaves {
             }
 
             string saveName = panel.Controls[rowIndex].Text;
+            if (MessageBox.Show("Are you sure you want to load \"" + saveName + "\"?", "Load Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {        
+                CopyDirectory(SavePath, ".\\BackupSave\\");
+                ClearDirectory(SavePath);
+                CopyDirectory(".\\Saves\\" + saveName, SavePath);
 
-            CopyDirectory(SavePath, ".\\BackupSave\\");
-            ClearDirectory(SavePath);
-            CopyDirectory(".\\Saves\\" + saveName, SavePath);
-
-            SetButtonColor("Save" + saveName, ButtonSaveColor);
-            ActiveSave = saveName;
+                SetButtonColor("Save" + saveName, ButtonSaveColor);
+                ActiveSave = saveName;
+            }
         }
 
         private void DeleteButton_Click(object sender, EventArgs e) {
