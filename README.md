@@ -11,3 +11,6 @@
 - Sort of an issue: Don't put a newline in the `Input Box`, I had to make it multiline so I could increase the height. Windows Forms is garbage.
 
 Before you use this, just make a backup just in case anything goes wrong. I don't see it happening but it's not impossible.
+
+## How it looks:
+![](https://imgur.com/i7hZQvx.png)
