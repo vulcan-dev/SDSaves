@@ -40,8 +40,13 @@ namespace SDSaves {
                 Directory.CreateDirectory(".\\Saves\\");
             } else {
                 string[] saves = Directory.GetDirectories(".\\Saves\\");
-                foreach (string dir in saves) {
-                    AddSaveToList(dir.Substring(dir.LastIndexOf("\\") + 1));
+
+                var sortedSaves = Array.ConvertAll(saves, x => new { Name = x, Date = Directory.GetCreationTime(x) });
+                sortedSaves = sortedSaves.OrderBy(x => x.Date).ToArray();
+                
+                foreach (var save in sortedSaves) {
+                    string saveName = save.Name.Substring(save.Name.LastIndexOf('\\') + 1);
+                    AddSaveToList(saveName);
                 }
             }
 
@@ -81,10 +86,10 @@ namespace SDSaves {
             return button;
         }
 
-        private Button GetButton(string name, int offset = 0) {
+        private Tuple<Button, int> GetButton(string name, int offset = 0) {
             for (int i = 0; i < ButtonPanel.Controls.Count; i++) {
                 if (ButtonPanel.Controls[i].Name == name) {
-                    return (Button)ButtonPanel.Controls[i + offset];
+                    return Tuple.Create<Button, int>((Button)ButtonPanel.Controls[i + offset], i);
                 }
             }
 
@@ -187,7 +192,7 @@ namespace SDSaves {
         private void OverwriteButton_Click(object sender, EventArgs e) { // Save/Overwrite Button
             Button overwriteButton = (Button)sender;
 
-            string saveName = GetButton(overwriteButton.Name, -2).Text;
+            string saveName = GetButton(overwriteButton.Name, -2).Item1.Text;
             if (MessageBox.Show("Are you sure you want to overwrite \"" + saveName + "\"?", "Overwrite Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 string path = $".\\Saves\\{saveName}";
                 if (!Directory.Exists(path)) {
@@ -204,7 +209,7 @@ namespace SDSaves {
         private void SaveNameButton_Click(object sender, EventArgs e) { // Load Button
             Button loadButton = (Button)sender;
 
-            string saveName = GetButton(loadButton.Name).Text;
+            string saveName = GetButton(loadButton.Name).Item1.Text;
             if (MessageBox.Show("Are you sure you want to load \"" + saveName + "\"?", "Load Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {        
                 CopyDirectory(SavePath, ".\\BackupSave\\");
                 ClearDirectory(SavePath);
@@ -217,14 +222,14 @@ namespace SDSaves {
         private void DeleteButton_Click(object sender, EventArgs e) { // Delete Button
             Button deleteButton = (Button)sender;
 
-            string saveName = GetButton(deleteButton.Name, -1).Text;
-            if (MessageBox.Show("Are you sure you want to delete \"" + saveName + "\"?", "Delete Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                Directory.Delete(".\\Saves\\" + saveName, true);
+            Tuple<Button, int> btnTuple = GetButton(deleteButton.Name, -1);
+            if (MessageBox.Show("Are you sure you want to delete \"" + btnTuple.Item1.Text + "\"?", "Delete Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                Directory.Delete(".\\Saves\\" + btnTuple.Item1.Text, true);
 
-                GameSaves.Remove(saveName);
+                GameSaves.Remove(btnTuple.Item1.Text);
 
                 for (int i = 0; i < 3; i++) {
-                    ButtonPanel.Controls.RemoveAt(ButtonPanel.Controls.Count - 1);
+                    ButtonPanel.Controls.RemoveAt(btnTuple.Item2 - 1);
                 }
             }
         }
