@@ -27,11 +27,6 @@ namespace SDSaves {
 
             ButtonPanel = Controls.Find("button_panel", true)[0] as TableLayoutPanel;
 
-            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
-            ButtonPanel.Padding = new Padding(0, 0, vertScrollWidth, 0);
-            ButtonPanel.HorizontalScroll.Enabled = false;
-            ButtonPanel.HorizontalScroll.Visible = false;
-
             Button createSaveButton = Controls.Find("btn_createSave", true).FirstOrDefault() as Button;
             createSaveButton.Click += new EventHandler(createSaveButton_Click);
 
@@ -125,6 +120,22 @@ namespace SDSaves {
             ButtonPanel.Controls.Add(deleteButton);
             ButtonPanel.Controls.Add(overwriteButton);
             ButtonPanel.ResumeLayout();
+
+            int totalButtonHeight = 0;
+
+            for (int i = 0; i < GameSaves.Count; i++) {
+                totalButtonHeight += ButtonSize.Height;
+            }
+
+            if (totalButtonHeight > ButtonPanel.Height - 39) {
+                int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+                ButtonPanel.AutoScroll = true;
+                ButtonPanel.Padding = new Padding(0, 0, vertScrollWidth, 0);
+                ButtonPanel.HorizontalScroll.Enabled = false;
+                ButtonPanel.HorizontalScroll.Visible = false;
+                ButtonPanel.VerticalScroll.Enabled = true;
+                ButtonPanel.VerticalScroll.Visible = true;
+            }
         }
 
         private string GetHash(string path) {
@@ -239,6 +250,21 @@ namespace SDSaves {
                 for (int i = 0; i < 3; i++) {
                     ButtonPanel.Controls.RemoveAt(btnTuple.Item2 - 1);
                 }
+
+                int totalButtonHeight = 0;
+                for (int i = 0; i < GameSaves.Count; i++) {
+                    totalButtonHeight += ButtonSize.Height;
+                }
+
+                if (totalButtonHeight < ButtonPanel.Height - 39) {
+                    ButtonPanel.Padding = new Padding(0, 0, 0, 0);
+                    ButtonPanel.AutoScroll = false;
+                    ButtonPanel.HorizontalScroll.Enabled = false;
+                    ButtonPanel.HorizontalScroll.Visible = false;
+                    ButtonPanel.VerticalScroll.Enabled = false;
+                    ButtonPanel.VerticalScroll.Visible = false;
+                }
+
                 ButtonPanel.ResumeLayout();
             }
         }
