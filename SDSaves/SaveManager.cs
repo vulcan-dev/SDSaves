@@ -5,8 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-// Todo: Cleanup paths.
-
 namespace SDSaves {
     public partial class SaveManager : Form {
         /************************
@@ -27,20 +25,24 @@ namespace SDSaves {
 
             ButtonPanel = Controls.Find("button_panel", true)[0] as TableLayoutPanel;
 
+            // Register "Create Save" Button Event.
             Button createSaveButton = Controls.Find("btn_createSave", true).FirstOrDefault() as Button;
             createSaveButton.Click += new EventHandler(createSaveButton_Click);
 
+            // Check if the save folder exists.
             SavePath = $"C:\\Users\\{Environment.UserName}\\AppData\\Local\\SurrounDead\\Saved\\SaveGames\\";
             if (!Directory.Exists(SavePath)) {
                 MessageBox.Show($"Could not find save path: {SavePath}");
                 Environment.Exit(1);
             }
 
+            // Get all local save files and add them to the list.
             if (!Directory.Exists(".\\Saves\\")) {
                 Directory.CreateDirectory(".\\Saves\\");
             } else {
                 string[] saves = Directory.GetDirectories(".\\Saves\\");
 
+                // Sort the saves by date.
                 var sortedSaves = Array.ConvertAll(saves, x => new { Name = x, Date = Directory.GetCreationTime(x) });
                 sortedSaves = sortedSaves.OrderBy(x => x.Date).ToArray();
                 
@@ -107,22 +109,25 @@ namespace SDSaves {
                 return; // Overwrite existing save, we don't need to add it again.
             }
 
+            // Create the buttons.
             Button saveNameButton = CreateButton(name, "Save" + name);
             Button deleteButton = CreateButton("Delete", "Delete" + name);
             Button overwriteButton = CreateButton("Save", "Overwrite" + name);
 
+            // Set click events for the buttons.
             deleteButton.Click += DeleteButton_Click;
             saveNameButton.Click += SaveNameButton_Click;
             overwriteButton.Click += OverwriteButton_Click;
 
+            // Add to the button panel.
             ButtonPanel.SuspendLayout();
             ButtonPanel.Controls.Add(saveNameButton);
             ButtonPanel.Controls.Add(deleteButton);
             ButtonPanel.Controls.Add(overwriteButton);
             ButtonPanel.ResumeLayout();
 
+            // Add vertical scrollbar if we need to.
             int totalButtonHeight = 0;
-
             for (int i = 0; i < GameSaves.Count; i++) {
                 totalButtonHeight += ButtonSize.Height;
             }
@@ -138,7 +143,7 @@ namespace SDSaves {
             }
         }
 
-        private string GetHash(string path) {
+        private string GetHash(string path) { // This function is used for getting the active save.
             string finalHash = "";
             string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
             foreach (string file in files) {
@@ -251,6 +256,7 @@ namespace SDSaves {
                     ButtonPanel.Controls.RemoveAt(btnTuple.Item2 - 1);
                 }
 
+                // Remove vertical scrollbar if we need to.
                 int totalButtonHeight = 0;
                 for (int i = 0; i < GameSaves.Count; i++) {
                     totalButtonHeight += ButtonSize.Height;
@@ -271,6 +277,8 @@ namespace SDSaves {
 
         private void createSaveButton_Click(object sender, EventArgs e) { // Create Save Button
             string saveName = Controls.Find("input_saveName", true).FirstOrDefault().Text;
+
+            // Do some checks to make sure the save name is valid.
             if (saveName == "") {
                 MessageBox.Show("Please enter a name for the save.");
                 return;
@@ -291,6 +299,7 @@ namespace SDSaves {
                 return;
             }
 
+            // Copy the game save to our save folder.
             string path = $".\\Saves\\{saveName}";
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
