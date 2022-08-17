@@ -27,6 +27,11 @@ namespace SDSaves {
 
             ButtonPanel = Controls.Find("button_panel", true)[0] as TableLayoutPanel;
 
+            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            ButtonPanel.Padding = new Padding(0, 0, vertScrollWidth, 0);
+            ButtonPanel.HorizontalScroll.Enabled = false;
+            ButtonPanel.HorizontalScroll.Visible = false;
+
             Button createSaveButton = Controls.Find("btn_createSave", true).FirstOrDefault() as Button;
             createSaveButton.Click += new EventHandler(createSaveButton_Click);
 
@@ -82,6 +87,7 @@ namespace SDSaves {
             button.ForeColor = Color.White;
             button.Size = ButtonSize;
             button.Name = name;
+            button.Margin = new Padding(1, 1, 1, 1);
 
             return button;
         }
