@@ -229,7 +229,7 @@ namespace SDSaves {
             Button loadButton = (Button)sender;
 
             string saveName = GetButton(loadButton.Name).Item1.Text;
-            if (MessageBox.Show("Are you sure you want to load \"" + saveName + "\"?", "Load Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {        
+            if (MessageBox.Show("Are you sure you want to load \"" + saveName + "\"?\n(Note: You may need to restart if the spawn position is incorrect, game bug (v1.1.0f))", "Load Save", MessageBoxButtons.YesNo) == DialogResult.Yes) {        
                 CopyDirectory(SavePath, ".\\BackupSave\\");
                 ClearDirectory(SavePath);
                 CopyDirectory(".\\Saves\\" + saveName, SavePath);
