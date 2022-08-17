@@ -101,6 +101,7 @@
             // 
             // button_panel
             // 
+            this.button_panel.AutoScroll = true;
             this.button_panel.BackColor = System.Drawing.Color.Transparent;
             this.button_panel.ColumnCount = 3;
             this.button_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
