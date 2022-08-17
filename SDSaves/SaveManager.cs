@@ -13,7 +13,7 @@ namespace SDSaves {
         *        Variables      *
         *************************/
         private Size ButtonSize = new Size(294, 34);
-        private Color ButtonColor = Color.FromArgb(47, 51, 61);
+        private Color ButtonColor = Color.FromArgb(37, 41, 51);
         private Color ButtonSaveColor = Color.FromArgb(255, 131, 114);
         private TableLayoutPanel ButtonPanel;
         private List<string> GameSaves = new List<string>();

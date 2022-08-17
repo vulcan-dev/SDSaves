@@ -42,7 +42,7 @@
             // 
             // container
             // 
-            this.container.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.container.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
             this.container.Controls.Add(this.panel1);
             this.container.Controls.Add(this.input_saveName);
             this.container.Controls.Add(this.btn_createSave);
@@ -56,7 +56,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(131)))), ((int)(((byte)(114)))));
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.lbl_title);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -91,7 +91,7 @@
             // 
             // input_saveName
             // 
-            this.input_saveName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
+            this.input_saveName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(131)))), ((int)(((byte)(114)))));
             this.input_saveName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.input_saveName.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.input_saveName.ForeColor = System.Drawing.Color.White;
@@ -109,7 +109,7 @@
             // 
             // btn_createSave
             // 
-            this.btn_createSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
+            this.btn_createSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(131)))), ((int)(((byte)(114)))));
             this.btn_createSave.FlatAppearance.BorderSize = 0;
             this.btn_createSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_createSave.Font = new System.Drawing.Font("Verdana", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -131,7 +131,7 @@
             this.button_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.button_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.button_panel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(61)))));
-            this.button_panel.Location = new System.Drawing.Point(4, 42);
+            this.button_panel.Location = new System.Drawing.Point(0, 42);
             this.button_panel.Margin = new System.Windows.Forms.Padding(0);
             this.button_panel.Name = "button_panel";
             this.button_panel.RowCount = 1;
@@ -155,7 +155,7 @@
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.button_panel.Size = new System.Drawing.Size(408, 519);
+            this.button_panel.Size = new System.Drawing.Size(416, 519);
             this.button_panel.TabIndex = 6;
             // 
             // SaveManager
@@ -163,7 +163,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::SDSaves.Properties.Resources.sd_background;
             this.ClientSize = new System.Drawing.Size(416, 609);
             this.Controls.Add(this.container);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
