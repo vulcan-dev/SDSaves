@@ -114,9 +114,11 @@ namespace SDSaves {
             saveNameButton.Click += SaveNameButton_Click;
             overwriteButton.Click += OverwriteButton_Click;
 
+            ButtonPanel.SuspendLayout();
             ButtonPanel.Controls.Add(saveNameButton);
             ButtonPanel.Controls.Add(deleteButton);
             ButtonPanel.Controls.Add(overwriteButton);
+            ButtonPanel.ResumeLayout();
         }
 
         private string GetHash(string path) {
@@ -227,10 +229,11 @@ namespace SDSaves {
                 Directory.Delete(".\\Saves\\" + btnTuple.Item1.Text, true);
 
                 GameSaves.Remove(btnTuple.Item1.Text);
-
+                ButtonPanel.SuspendLayout();
                 for (int i = 0; i < 3; i++) {
                     ButtonPanel.Controls.RemoveAt(btnTuple.Item2 - 1);
                 }
+                ButtonPanel.ResumeLayout();
             }
         }
 
