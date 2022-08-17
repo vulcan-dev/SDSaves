@@ -12,4 +12,4 @@
 Before you use this, just make a backup just in case anything goes wrong. I don't see it happening but it's not impossible.
 
 ## How it looks:
-![](https://imgur.com/OyCPCgC.png)
+![](https://imgur.com/d451pKP.png)
