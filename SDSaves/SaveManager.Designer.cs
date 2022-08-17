@@ -111,7 +111,7 @@
             this.button_panel.Location = new System.Drawing.Point(9, 42);
             this.button_panel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button_panel.Name = "button_panel";
-            this.button_panel.RowCount = 20;
+            this.button_panel.RowCount = 1;
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.button_panel.RowStyles.Add(new System.Windows.Forms.RowStyle());
